@@ -7,5 +7,6 @@ admin.autodiscover()
 
 
 urlpatterns = patterns('',
-    (r'^', 'voiceapp.app1.views.register_me'),
+    (r'^$', 'voiceapp.app1.views.register_me'),
+    (r'^reg_advertiser/$', 'voiceapp.app1.views.register_ad'),
 )

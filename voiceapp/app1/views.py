@@ -32,6 +32,12 @@ def register(request):
             render_to_response("register_status.html", dict(status="Failed."))
     
 
+def register_ad(request):
+    return render_to_response("advertise.html", dict(locations=['gurgaon', 'lucknow', 'agra'],
+                                              domains=['realestate', 'medicine', 'education'],
+                                              specifics=['shopkeeper', 'retail', 'broker'],
+                                              phoenix="abhinav"
+                                              ))
 
 
 

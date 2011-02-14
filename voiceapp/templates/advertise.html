@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <script type="text/javascript" src="/media/jquery-1.3.2.js"></script>
+        <script>
+            $('document').ready(function() {
+                var location = '<select name="select_location" id="select_location" onChange="fillDomain()">';
+                // TODO : Make Django return values and iterate over them
+                {% for location in locations %}
+                location += '<option name="{{location}}" value="{{location}}">{{location}}</option>';
+                {% endfor %}
+                location += '</select>';
+                if(! $("#select_location").length){
+                    $('#location').append(location);
+                }
+                else{
+                    fillResult();
+                }
+            });
+            function fillDomain(){
+                var domain = '<select name="select_domain" id="select_domain" onChange="fillSpecific()">';
+                // TODO : Make Django return values and iterate over them
+                {% for domain in domains %}
+                domain += '<option name="{{domain}}" value="{{domain}}">{{domain}}</option>';
+                {% endfor %}
+                domain += '</select>';
+                if(! $("#select_domain").length){
+                    $('#location').append(domain);
+                }
+                else{
+                    fillResult();
+                }
+            }
+            function fillSpecific(){
+                var specific = '<select name="select_specific" id="select_specific" onChange="fillResult()">';
+                // TODO : Make Django return values and iterate over them
+                {% for specific in specifics %}
+                specific += '<option name="{{specific}}" value="{{specific}}">{{specific}}</option>';
+                {% endfor %}
+                specific += '</select>';
+                if(! $("#select_specific").length){
+                    $('#location').append(specific);
+                }
+                else{
+                    fillResult();
+                }
+            }
+            function fillResult(){
+                var tag = $('#select_location option:selected').val();
+                tag += "." + $('#select_domain option:selected').val(); 
+                tag += "." + $('#select_specific option:selected').val();
+                
+                if($("#tagvalue").length){
+                    $("#tagvalue").html("<div id='tagvalue'>" + tag + "</div>");
+                }
+                else if($("#select_specific").length && $("#select_domain").length && $("#select_location").length) {
+                    if (! $("#tagvalue").length){
+                        $('#location').append('<input type="button" id="button_buy" value="Buy this tag" onClick="buyTag()"></input>')
+                    }
+                    $('#location').append("<div id='tagvalue'>" + tag + "</div>");
+                }
+            }
+            function buyTag(){
+                alert("Buy tag:" + $("#tagvalue").text() + "?");
+            }
+
+        </script>
+        <meta name="author" content="Abhinav Jha" />
+    </head>
+    <body>
+        <div id="location">
+        </div>
+    </body>
+</html>
+
+
