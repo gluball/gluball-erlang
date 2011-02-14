@@ -1,0 +1,40 @@
+<erl>
+-record(user, {username, password}).
+get_param(_, [])-> "";
+get_param(Param, [{K,V}|T])->
+    case Param =:= K of 
+        true -> V;
+        false -> get_param(Param, T)
+    end.
+
+
+out(Body)->
+    mnesia:start(),
+    Params = yaws_api:parse_post(Body),
+    Username = get_param("sip_auth_username", Params),
+    Domain = get_param("domain", Params),
+    Password = db:lookup(Username),
+    case Password of 
+        "unauthorized" -> {html, ""};
+        _->{html,"<document type='freeswitch/xml'>
+        <section name='directory'>	
+            <domain name='" ++ Domain ++ "'>
+                <params>
+                    <param name='dial-string' value='{presence_id=${dialed_user}@${dialed_domain}}${sofia_contact(${dialed_user}@${dialed_domain})}'/>
+                </params>
+                <groups>
+                    <group name='default'>
+                        <users>
+                            <user id='" ++ Username ++ "'>
+                                <params>
+                                    <param name='password' value='" ++ Password ++ "'/>
+                                </params>
+                            </user>
+                        </users>
+                    </group>
+                </groups>
+            </domain>
+        </section>
+    </document>"}
+end.
+</erl>

@@ -1,0 +1,16 @@
+sudo apt-get install yaws # This is the yaws webserver, written in erlang, which supports native erlang code in webpages. 
+replace index.html in /usr/share/yaws with index.yaws
+compile db.erl as : sudo erl db.erl
+place db.beam in  /usr/lib/erlang/lib/yaws-1.84/ebin
+
+- run yaws -sname nodename
+- on the shell, type : mnesia:create_schema([nodename]).
+- mnesia:start().
+- db:insert("username", "password").
+- db:insert("username", "password").
+- db:insert("username", "password").
+- db:insert("username", "password").
+- db:insert("username", "password").
+
+
+- Now, when FS makes a request with sip_auth_username=username&domain=adsfadf, then it will get back password="password" :
