@@ -1,0 +1,20 @@
+<document type="freeswitch/xml">
+  <section name="directory">	
+    <domain name="{{domain}}">
+      <params>
+        <param name="dial-string" value="{presence_id=${dialed_user}@${dialed_domain}}${sofia_contact(${dialed_user}@${dialed_domain})}"/>
+      </params>
+      <groups>
+        <group name="default">
+         <users>
+          <user id="{{username}}">
+            <params>
+              <param name="password" value="{{password}}"/>
+            </params>
+          </user>
+         </users>
+        </group>
+      </groups>
+    </domain>
+  </section>
+</document>

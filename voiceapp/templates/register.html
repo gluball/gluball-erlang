@@ -1,0 +1,26 @@
+<html>
+    <head>
+<script type="text/javascript" src="/media/js/jquery-1.3.2.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+            $("#zoong").hide();
+            $("#zoong").fadeIn("slow");
+        }
+</script>
+        <meta name="author" content="Abhinav Jha" />
+    </head>
+    <body>
+        <div id="zoong">
+        <table>
+            <form name="send" method="POST" target="/register">
+                <tr><td>Username: </td><td><input type="text" name="sip_auth_username"/></td></tr>
+                <tr><td>Password: </td><td><input type="password" name="password"/></td></tr>
+                <tr><td>Email: </td><td><input type="text" name="email" /></td></tr>
+                <tr><td></td><td><input type="submit" value="register"/></td></tr>
+            </form>
+        </table>
+    </div>
+    </body>
+</html>
+
+
